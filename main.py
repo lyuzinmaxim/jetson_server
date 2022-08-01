@@ -33,8 +33,6 @@ if __name__ == "__main__":
     #     angle_x -= 1
     #     angle_y -= 1
 
-        global_vars.port_info += 5
-        # print(global_vars.port_info)
         if global_vars.local_message is not None:
             frame_number, left, top, width, height, confidence = handle_local_bytes(global_vars.local_message)
             diff_x, diff_y = calculate_instantaneous_angle(left, top, width, height)
