@@ -40,7 +40,7 @@ if __name__ == "__main__":
             diff_x, diff_y = calculate_instantaneous_angle(left, top, width, height)
 
             diff_x_pid, diff_y_pid = pid_x.calculate(diff_x), pid_y.calculate(diff_y)
-            print("{}x{}, {:.2f}x{:.2f}, {:.2f}x{:.2f}".format(left,top,diff_x, diff_y, diff_x_pid, diff_y_pid))
+            print("{}x{}, {:.2f}x{:.2f}, pid:{:.2f}x{:.2f}".format(left,top,diff_x, diff_y, diff_x_pid, diff_y_pid))
             thread3.run(angle_x=diff_x, angle_y=diff_y)
             global_vars.local_message = None
 
