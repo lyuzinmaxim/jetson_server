@@ -1,1 +1,9 @@
+port_info = 0
 local_message = None
+enable_serial = 0
+dt = 0.1
+kp = 1.4
+ki = 0.01
+kd = 0.15
+min_angle = -6
+max_angle = 60

@@ -10,23 +10,25 @@ class ThreadedSerial(threading.Thread):
         self.threadID = threadID
         self.device = device
         self.speed = speed
-        self.serial = serial.Serial(port=device, baudrate=speed,write_timeout=0.05)
+        self.serial = serial.Serial(port=device, baudrate=speed, write_timeout=0.05)
 
-    def run(self, angle_x=0.1, angle_y=-0.1, distance=100, verbose=False):
+    def run(self, angle_x=0.1, angle_y=-0.1, distance=1000, verbose=False):
 
-        if verbose: print("Starting " + self.name)
+        if verbose:
+            print("Starting " + self.name)
 
-        if verbose: print("Using port: {}".format(self.serial.name))
+        if verbose:
+            print("Using port: {}".format(self.serial.name))
         data = bytes.fromhex('FACE') + \
-                   int(60000).to_bytes(2, byteorder='little') + \
-                   int(19).to_bytes(1, byteorder='little') + \
-                   bytes.fromhex('11') + \
-                   int(3500).to_bytes(2, byteorder='little') + \
-                   int(7).to_bytes(2, byteorder='little') + \
-                   int(3).to_bytes(2, byteorder='little') + \
-                   bytearray(struct.pack("f", angle_x)) + \
-                   bytearray(struct.pack("f", angle_y)) + \
-                   bytearray(struct.pack("f", distance))
+               int(60000).to_bytes(2, byteorder='little') + \
+               int(19).to_bytes(1, byteorder='little') + \
+               bytes.fromhex('11') + \
+               int(3500).to_bytes(2, byteorder='little') + \
+               int(7).to_bytes(2, byteorder='little') + \
+               int(3).to_bytes(2, byteorder='little') + \
+               bytearray(struct.pack("f", angle_x)) + \
+               bytearray(struct.pack("f", angle_y)) + \
+               bytearray(struct.pack("f", distance))
 
         data += (CalculateCRC(data)).to_bytes(2, byteorder='little')
         try:
@@ -36,7 +38,8 @@ class ThreadedSerial(threading.Thread):
             # print("Output:{}".format(response.hex()))
         finally:
 
-            if verbose: print("UP and DOWN done")
+            if verbose:
+                print("UP and DOWN done")
             pass
             # self.serial.close()
             # self.serial.__del__()
